@@ -14,7 +14,7 @@ const controller = {
         { name: '米饭', quantity: '300g' },
         { name: '火腿肠', quantity: '100g' },
       ],
-      scene: ['晚餐','午餐'],
+      category: { name: '小吃', tab: 'snack' },
       cost: {
         time: 10,
         money: 5
