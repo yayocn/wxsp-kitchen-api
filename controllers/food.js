@@ -3,8 +3,10 @@
  * auth: yayo
  */
 
+// const foodModel = require('../models/foodModel');
+
 const controller = {
-  index () {
+  index (req, res) {
 
   },
 };

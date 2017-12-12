@@ -4,8 +4,8 @@
  */
 const express = require('express');
 const router = express.Router();
-const foods = require('../controllers/foods');
+const food = require('../controllers/food');
 
-router.get('/:_id', foods.index);
+router.get('/:_id', food.index);
 
 module.exports = router;

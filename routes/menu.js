@@ -5,8 +5,8 @@
 
 const express = require('express');
 const router = express.Router();
-const menus = require('../controllers/menus');
+const menu = require('../controllers/menu');
 
-router.get('/', menus.index);
+router.get('/', menu.index);
 
 module.exports = router;
