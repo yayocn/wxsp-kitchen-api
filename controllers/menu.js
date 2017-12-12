@@ -8,7 +8,7 @@ const controller = {
     res.json({
       snack: [{
         name: '扬州炒饭',
-        pic: 'food_default.jpg',
+        pic: 'food_default.png',
         taste: ['salty'],
         material: [
           { name: '鸡蛋', quantity: '2个' },
