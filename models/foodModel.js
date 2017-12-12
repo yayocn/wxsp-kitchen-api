@@ -39,10 +39,10 @@ const foodSchema = mongoose.Schema({
     }
   ],
   // when to cook
-  scene: [
+  category: [
     {
       type: 'ObejctId',
-      ref: 'kitchen_scene'
+      ref: 'kitchen_category'
     }
   ],
   // how much will pay for it.
