@@ -6,22 +6,20 @@
 const controller = {
   index (req, res) {
     res.json({
-      snack: [{
-        name: '扬州炒饭',
-        pic: 'food_default.png',
-        taste: ['salty'],
-        material: [
-          { name: '鸡蛋', quantity: '2个' },
-          { name: '米饭', quantity: '300g' },
-          { name: '火腿肠', quantity: '100g' },
-        ],
-        category: { name: '小吃', tab: 'snack' },
-        cost: {
-          time: 10,
-          money: 5
+      snack: [
+        {
+          name: '扬州炒饭',
+          pic: 'food_default.png',
+          taste: ['好咸啊', '甜的', '乱加的'],
+          times: 21
         },
-        times: 21
-      }]
+        {
+          name: '鸡蛋仔',
+          pic: 'food_default.png',
+          taste: ['甜的'],
+          times: 88
+        }
+      ]
     });
   }
 };
