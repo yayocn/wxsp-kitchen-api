@@ -9,4 +9,6 @@ const order = require('../controllers/order');
 
 router.get('/:_id', order.index);
 
+router.delete('/:_id', order.delete);
+
 module.exports = router;
