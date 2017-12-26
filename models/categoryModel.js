@@ -1,11 +1,11 @@
 /**
- * function: scene model
+ * function: category model
  * auth: yayo
  */
 
-const mongoose = require('mongoose');
+const mongoose = require('../config/db_config');
 
-const sceneSchema = mongoose.Schema({
+const categorySchema = mongoose.Schema({
   name: {
     type: String,
     default: '',
@@ -16,6 +16,21 @@ const sceneSchema = mongoose.Schema({
   }
 });
 
-const sceneModel = mongoose.model('kitchen_scene', sceneSchema);
+const categoryModel = mongoose.model('kitchen_category', categorySchema);
 
-module.exports = sceneModel;
+module.exports = categoryModel;
+
+// const list = [
+//   { name: '小吃', tab: 'snack' },
+//   { name: '甜点', tab: 'dessert' },
+//   { name: '硬菜', tab: 'hardFood' },
+//   { name: '汤', tab: 'soup' },
+//   { name: '饮料', tab: 'drink' },
+//   { name: '炒菜', tab: 'stir-fry' },
+//   { name: '炖菜', tab: 'stew' }
+// ];
+//
+// categoryModel.create(list, (err, msg) => {
+//   console.log(err)
+//   console.log(msg)
+// });
