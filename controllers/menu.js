@@ -2,25 +2,21 @@
  * function: menus controller
  * auto: yayo
  */
+const foodModel = require('../models/foodModel');
+const _ = require('lodash');
 
 const controller = {
   index (req, res) {
-    res.json({
-      snack: [
-        {
-          name: '扬州炒饭',
-          pic: 'food_default.png',
-          taste: ['好咸啊', '甜的', '乱加的'],
-          times: 21
-        },
-        {
-          name: '鸡蛋仔',
-          pic: 'food_default.png',
-          taste: ['甜的'],
-          times: 88
-        }
-      ]
-    });
+    let con = {};
+    foodModel.find(con, { name: 1, pic: 1, taste: 1, category: 1, times: 1 }, (err, data) => {
+      if (err) {
+        console.log(err);
+        res.send('error');
+      } else {
+        let result = _.groupBy(data, 'category');
+        res.json(result);
+      }
+    })
   }
 };
 
