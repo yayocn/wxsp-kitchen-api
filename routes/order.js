@@ -7,8 +7,8 @@ const express = require('express');
 const router = express.Router();
 const order = require('../controllers/order');
 
-router.get('/:_id', order.index);
+router.get('/:openId', order.getOrder);
 
-router.delete('/:_id', order.delete);
+router.post('/update', order.update);
 
 module.exports = router;

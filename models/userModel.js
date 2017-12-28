@@ -10,10 +10,10 @@ const userSchema = mongoose.Schema({
     type: String,
     unique: true
   },
-  order: [
+  orderList: [
     {
       type: 'ObjectId',
-      ref: 'kitchen_food'
+      ref: 'kitchen_order'
     }
   ]
 });

@@ -2,53 +2,70 @@
  * function: order controller
  * auth: yayo
  */
+const orderModel = require('../models/orderModel');
+const userModel = require('../models/userModel');
+const _ = require('lodash');
 
 const controller = {
-  index (req, res) {
-    const con = {
-      _id: req.params._id
-    };
+  getOrder (req, res) {
 
-    res.send([
-      {
-        _id: 1,
-        name: '鸡蛋仔',
-        pic: 'food_default.png'
-      },
-      {
-        _id: 2,
-        name: '鸡蛋仔',
-        pic: 'food_default.png'
-      },
-      {
-        _id: 3,
-        name: '鸡蛋仔',
-        pic: 'food_default.png'
-      },
-      {
-        _id: 4,
-        name: '鸡蛋仔',
-        pic: 'food_default.png'
-      }
-    ]);
   },
-  delete (req, res) {
+  update (req, res) {
+    const orderId = req.body._id;
     const con = {
-      _id: req.params._id
-    };
+      user: req.body.openId,
+      foods: _.map(req.body.orderList, item => item._id)
+    }
 
-    res.send([
-      {
-        _id: 3,
-        name: '鸡蛋仔',
-        pic: 'food_default.png'
-      },
-      {
-        _id: 4,
-        name: '鸡蛋仔',
-        pic: 'food_default.png'
-      }
-    ]);
+    if (orderId) {
+      // 更新
+
+    } else {
+      // 新增
+      orderModel.create(con, (err, msg) => {
+        if (err) {
+          console.log(err);
+          res.send('error');
+        } else {
+          userModel.findOne({ openId: req.body.openId }, (err, data) => {
+            if (err) {
+              res.send('error');
+            } else {
+              if (data) {
+                userModel.update({ openId: req.body.openId }, {
+                  $push: { orderList: msg._id }
+                }, (err, userMsg) => {
+                  if (err) {
+                    res.send('error');
+                  } else {
+                    res.send('ok');
+                  }
+                })
+              } else {
+                userModel.create({
+                  openId: req.body.openId,
+                  orderList: [msg._id]
+                }, (err, userMsg) => {
+                  if (err) {
+                    res.send('error');
+                  } else {
+                    res.send('ok');
+                  }
+                })
+              }
+            }
+          })
+        }
+      })
+    }
+
+    // orderModel.create(con, (err, msg) => {
+    //   if (err) {
+    //     console.log(err)
+    //   } else {
+    //     console.log(msg)
+    //   }
+    // })
   }
 };
 
