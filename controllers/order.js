@@ -15,9 +15,7 @@ const controller = {
     const orderId = req.body.orderListId;
     const user = req.body.openId;
     const foods = _.map(req.body.orderList, item => item._id);
-
-
-    console.log(orderId)
+    
     if (orderId) {
       // 更新
       const con = {
@@ -87,7 +85,6 @@ const controller = {
         if (err) {
           res.send('error');
         } else {
-          console.log(foodData)
           res.send(foodData);
         }
       })
