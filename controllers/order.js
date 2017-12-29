@@ -4,6 +4,7 @@
  */
 const orderModel = require('../models/orderModel');
 const userModel = require('../models/userModel');
+const foodModel = require('../models/foodModel');
 const _ = require('lodash');
 
 const controller = {
@@ -11,20 +12,34 @@ const controller = {
 
   },
   update (req, res) {
-    const orderId = req.body._id;
-    const con = {
-      user: req.body.openId,
-      foods: _.map(req.body.orderList, item => item._id)
-    }
+    const orderId = req.body.orderListId;
+    const user = req.body.openId;
+    const foods = _.map(req.body.orderList, item => item._id);
 
+
+    console.log(orderId)
     if (orderId) {
       // 更新
+      const con = {
+        _id: orderId
+      };
 
+      orderModel.update(con, { $set: { foods: foods } }, { _id: 1 }, (err, msg) => {
+        if (err) {
+          res.send('error');
+        } else {
+          res.send('ok');
+        }
+      })
     } else {
       // 新增
+      const con = {
+        user,
+        foods
+      };
+
       orderModel.create(con, (err, msg) => {
         if (err) {
-          console.log(err);
           res.send('error');
         } else {
           userModel.findOne({ openId: req.body.openId }, (err, data) => {
@@ -38,7 +53,7 @@ const controller = {
                   if (err) {
                     res.send('error');
                   } else {
-                    res.send('ok');
+                    res.json({ orderListId: msg._id });
                   }
                 })
               } else {
@@ -49,7 +64,7 @@ const controller = {
                   if (err) {
                     res.send('error');
                   } else {
-                    res.send('ok');
+                    res.json({ orderListId: msg._id });
                   }
                 })
               }
@@ -58,14 +73,24 @@ const controller = {
         }
       })
     }
+  },
+  unfinished (req, res) {
+    const con = {
+      user: req.params.openId,
+      isFinish: false
+    };
 
-    // orderModel.create(con, (err, msg) => {
-    //   if (err) {
-    //     console.log(err)
-    //   } else {
-    //     console.log(msg)
-    //   }
-    // })
+
+    orderModel.findOne(con)
+      .populate('foods', { name: 1, pic: 1 })
+      .exec((err, foodData) => {
+        if (err) {
+          res.send('error');
+        } else {
+          console.log(foodData)
+          res.send(foodData);
+        }
+      })
   }
 };
 
