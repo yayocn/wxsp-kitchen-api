@@ -88,6 +88,22 @@ const controller = {
           res.send(foodData);
         }
       })
+  },
+  orderList (req, res) {
+    const con = {};
+    if (req.body.isFinish) {
+      con.isFinish = req.body.isFinish;
+    }
+
+    orderModel.find(con)
+      .populate('foods', { name: 1, pic: 1 })
+      .exec((err, foodData) => {
+        if (err) {
+          res.send('error');
+        } else {
+          res.send(foodData);
+        }
+      })
   }
 };
 

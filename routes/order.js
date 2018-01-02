@@ -13,4 +13,6 @@ router.post('/update', order.update);
 
 router.get('/unfinished/:openId', order.unfinished);
 
+router.post('/orderList', order.orderList);
+
 module.exports = router;
