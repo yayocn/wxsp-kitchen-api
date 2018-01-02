@@ -10,6 +10,10 @@ const userSchema = mongoose.Schema({
     type: String,
     unique: true
   },
+  lv: {
+    type: Number,
+    default: 1
+  },
   orderList: [
     {
       type: 'ObjectId',
