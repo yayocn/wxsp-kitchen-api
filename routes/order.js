@@ -15,4 +15,6 @@ router.get('/unfinished/:openId', order.unfinished);
 
 router.post('/orderList', order.orderList);
 
+router.get('/complete/:orderId', order.completeOrder);
+
 module.exports = router;

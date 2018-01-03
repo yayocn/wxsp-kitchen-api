@@ -91,9 +91,11 @@ const controller = {
   },
   orderList (req, res) {
     const con = {};
-    if (req.body.isFinish) {
+    if (req.body.isFinish != undefined) {
       con.isFinish = req.body.isFinish;
     }
+
+    console.log(con)
 
     orderModel.find(con)
       .populate('foods', { name: 1, pic: 1 })
@@ -104,6 +106,19 @@ const controller = {
           res.send(foodData);
         }
       })
+  },
+  completeOrder (req, res) {
+    const con = {
+      _id: req.params.orderId
+    };
+
+    orderModel.update(con, { $set: { isFinish: true }}, (err, msg) => {
+      if (err) {
+        res.send('error');
+      } else {
+        res.send('ok');
+      }
+    })
   }
 };
 
